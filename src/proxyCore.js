@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = await import('node-fetch').then(mod => mod.default);
 
 module.exports.handler = async (event) => {
     const path = event.path.replace(/^\/proxy\//, '');
