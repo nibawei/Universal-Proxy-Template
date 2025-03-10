@@ -1,6 +1,8 @@
-const fetch = await import('node-fetch').then(mod => mod.default);
+const fetchPromise = import('node-fetch').then(mod => mod.default);
 
 module.exports.handler = async (event) => {
+    const fetch = await fetchPromise;
+    
     const path = event.path.replace(/^\/proxy\//, '');
     const targetUrl = decodeURIComponent(path);
     
@@ -20,7 +22,7 @@ module.exports.handler = async (event) => {
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message })
+            body: JSON.stringify({ error: error.message || "Proxy请求失败" })
         };
     }
 };
