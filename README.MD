@@ -17,7 +17,7 @@
 ## 快速部署 🚀
 
 ### Vercel 部署
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/niweizhuan/Universal-Proxy-Template)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nibawei/Universal-Proxy-Template)
 
 ```bash
 # 本地开发
@@ -25,7 +25,7 @@ vercel dev
 ```
 
 ### Netlify 部署
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/niweizhuan/Universal-Proxy-Template)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/nibawei/Universal-Proxy-Template)
 
 ```bash
 # 本地测试
