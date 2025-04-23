@@ -17,40 +17,6 @@ const FILTERED_HEADERS = [
   'x-amz-cf-id'
 ];
 
-// 重定向规则配置（可根据需要修改）
-const REDIRECT_RULES = {
-  // 示例：将旧路径重定向到新路径
-  '/old-path': '/new-path',
-  // 示例：带通配符的重定向
-  '/blog/*': '/news/*'
-};
-
-// 检查并应用重定向规则
-function applyRedirectRules(url) {
-  const parsedUrl = new URL(url);
-  let path = parsedUrl.pathname;
-  
-  // 检查完全匹配的重定向
-  if (REDIRECT_RULES[path]) {
-    parsedUrl.pathname = REDIRECT_RULES[path];
-    return parsedUrl.toString();
-  }
-  
-  // 检查通配符重定向
-  for (const [pattern, replacement] of Object.entries(REDIRECT_RULES)) {
-    if (pattern.endsWith('*')) {
-      const basePattern = pattern.slice(0, -1);
-      if (path.startsWith(basePattern)) {
-        const remainingPath = path.slice(basePattern.length);
-        parsedUrl.pathname = replacement.slice(0, -1) + remainingPath;
-        return parsedUrl.toString();
-      }
-    }
-  }
-  
-  return url;
-}
-
 module.exports.handler = async (event) => {
   // 处理 OPTIONS 预检请求
   if (event.httpMethod === 'OPTIONS') {
@@ -70,10 +36,7 @@ module.exports.handler = async (event) => {
 
   // 解析目标 URL
   const path = event.path.replace(/^\/proxy\//, '');
-  let targetUrl = decodeURIComponent(path);
-  
-  // 应用重定向规则
-  targetUrl = applyRedirectRules(targetUrl);
+  const targetUrl = decodeURIComponent(path);
 
   try {
     // 构造请求头
@@ -101,26 +64,10 @@ module.exports.handler = async (event) => {
       method: event.httpMethod,
       headers: headers,
       body: body,
-      redirect: 'manual' // 改为手动处理重定向
+      redirect: 'follow'
     });
 
-    // 处理重定向响应 (3xx状态码)
-    if ([301, 302, 303, 307, 308].includes(response.status)) {
-      const location = response.headers.get('location');
-      if (location) {
-        return {
-          statusCode: response.status,
-          headers: {
-            'location': location,
-            'cache-control': 'no-cache',
-            'access-control-allow-origin': '*'
-          },
-          body: ''
-        };
-      }
-    }
-
-    // 处理正常响应
+    // 处理响应
     const buffer = await response.arrayBuffer();
     const responseHeaders = {
       'content-type': response.headers.get('content-type'),
