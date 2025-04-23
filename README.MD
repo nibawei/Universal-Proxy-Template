@@ -1,6 +1,6 @@
 # Universal Proxy Template 🚀
 
-![GitHub stars](https://img.shields.io/github/stars/YShenZe/Universal-Proxy-Template?style=social)
+![GitHub stars](https://img.shields.io/github/stars/nibawei/Universal-Proxy-Template?style=social)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 一款支持多平台的现代化网络加速代理解决方案，专为Netlify和Vercel平台优化设计，提供安全高效的资源代理服务。
@@ -83,6 +83,3 @@ https://proxy.example.com/proxy/https://raw.githubusercontent.com/example/image.
 
 ## 许可协议 📜
 MIT License - 自由修改和分发，需保留原始许可声明
-
-[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
-[![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://netlify.com)
